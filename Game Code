@@ -1,0 +1,64 @@
+import random
+import time
+
+
+class Numbers:
+
+    def __init__(self):
+        self.score = 0
+        self.MIN = 1
+        self.MAX = 100
+        self.RAND = random.randint(self.MIN, self.MAX)
+
+    def valid_number(self, x):
+
+        if x < self.MIN or x > self.MAX:
+            print("Invalid number, try again.")
+            time.sleep(1)
+            return False
+        else:
+            return True
+
+    def play(self):
+
+        print("Enter a number to play:")
+
+        while True:
+            x = int(input())
+
+            if self.valid_number(x):
+                pass
+            else:
+                self.play()
+
+            if x == self.RAND:
+                self.score += 1
+                print("You win!")
+                break
+
+            elif x < self.RAND:
+                self.score += 1
+                print("Higher")
+
+            else:
+                self.score += 1
+                print("Lower")
+
+        self.endgame()
+
+    def endgame(self):
+
+        print(f"And you did it in {self.score} guesses too.")
+        time.sleep(1.5)
+        answer = input("Do you want to play again?\n").lower()
+        if answer == "yes":
+            self.score = self.score * 0
+            self.RAND = random.randint(self.MIN, self.MAX)
+            self.play()
+        else:
+            print("Maybe another time. Goodbye!")
+            quit()
+
+
+play = Numbers()
+play.play()
